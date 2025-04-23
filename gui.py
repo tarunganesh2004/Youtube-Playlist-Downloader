@@ -14,13 +14,13 @@ stop_download_flag = threading.Event()
 def download_videos():
     stop_download_flag.clear()
 
-    playlist_url = url_entry.get().strip()
+    video_or_playlist_url = url_entry.get().strip()
     download_path = path_var.get()
     selected_quality = quality_var.get()
 
-    if not playlist_url or not download_path:
+    if not video_or_playlist_url or not download_path:
         messagebox.showerror(
-            "Error", "Please enter the playlist URL and select a download path."
+            "Error", "Please enter the video/playlist URL and select a download path."
         )
         return
 
@@ -48,7 +48,12 @@ def download_videos():
 
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([playlist_url])
+            info = ydl.extract_info(video_or_playlist_url, download=False)
+            is_playlist = info.get("_type") == "playlist"
+            append_log(
+                "📁 Detected: Playlist" if is_playlist else "🎥 Detected: Single Video"
+            )
+            ydl.download([video_or_playlist_url])
         if not stop_download_flag.is_set():
             append_log("✅ Download complete.")
     except Exception as e:
@@ -97,7 +102,7 @@ def browse_folder():
 
 # GUI SETUP
 root = tk.Tk()
-root.title("YouTube Playlist Downloader")
+root.title("YouTube Video/Playlist Downloader")
 root.geometry("700x520")
 root.resizable(False, False)
 
@@ -105,7 +110,9 @@ path_var = tk.StringVar()
 quality_var = tk.StringVar(value="480p")
 
 # Widgets
-tk.Label(root, text="Playlist URL:", font=("Segoe UI", 10, "bold")).pack(pady=(15, 5))
+tk.Label(root, text="Video or Playlist URL:", font=("Segoe UI", 10, "bold")).pack(
+    pady=(15, 5)
+)
 url_entry = tk.Entry(root, width=80)
 url_entry.pack(pady=(0, 10))
 
@@ -130,7 +137,7 @@ btn_frame = tk.Frame(root)
 btn_frame.pack(pady=5)
 tk.Button(
     btn_frame,
-    text="Download Playlist",
+    text="Download",
     command=threaded_download,
     bg="#4CAF50",
     fg="white",
