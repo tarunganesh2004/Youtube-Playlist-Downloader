@@ -53,7 +53,7 @@ pyinstaller --onefile --add-binary "ffmpeg.exe;." gui.py
 
 Your `.exe` file will be in the `dist/` folder.
 
-✅ You can now share this `.exe` with friends. No need to install Python or `ffmpeg` separately.
+✅ You can now share this `.exe` with other people. No need to install Python or `ffmpeg` separately.
 
 ## 📸 App Preview
 
