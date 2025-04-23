@@ -1,12 +1,12 @@
-# 🎬 YouTube Playlist Downloader (Desktop App)
+# 🎬 YouTube Video/Playlist Downloader (Desktop App)
 
-A lightweight Python desktop application that allows you to download entire YouTube playlists at your preferred quality (480p, 720p, or 1080p) with just a few clicks. Now bundled with `ffmpeg.exe` for seamless audio/video merging!
+A lightweight Python desktop application that allows you to download entire YouTube playlists or videos at your preferred quality (480p, 720p, or 1080p) with just a few clicks. Now bundled with `ffmpeg.exe` for seamless audio/video merging!
 
 ---
 
 ## 🚀 Features
 
-- 📥 Download entire YouTube playlists
+- 📥 Download single video or entire YouTube playlists
 - 🎚 Select video quality: 480p, 720p, or 1080p
 - 🧾 Real-time download log
 - 🎛 GUI built with Tkinter
